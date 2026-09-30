@@ -1,18 +1,15 @@
+Writing
 <!DOCTYPE html>
 <html lang="om">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1b5e20">
-
   <link rel="manifest" href="manifest.json">
-
   <title>Bilo Game</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -28,16 +25,13 @@
       margin: auto;
     }
 
-    h1 {
-      color: #1b5e20;
-      font-size: 32px;
-    }
+    h1 { color: #1b5e20; }
 
     .card {
       background: white;
       padding: 25px;
       border-radius: 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 20px rgba(0,0,0,.15);
       margin-top: 20px;
     }
 
@@ -53,18 +47,18 @@
     }
 
     button {
-      font-size: 19px;
+      font-size: 18px;
       padding: 14px 18px;
       margin: 7px;
       border-radius: 15px;
       border: none;
-      background: #ffffff;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,.15);
       cursor: pointer;
     }
 
     button:active {
-      transform: scale(0.95);
+      transform: scale(.95);
     }
 
     .startBtn {
@@ -72,6 +66,11 @@
       color: white;
       font-weight: bold;
       width: 80%;
+    }
+
+    .soundBtn {
+      background: #1565c0;
+      color: white;
     }
 
     .info {
@@ -91,12 +90,8 @@
     }
 
     @keyframes bounce {
-      from {
-        transform: translateY(0);
-      }
-      to {
-        transform: translateY(-10px);
-      }
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
     }
 
     .animalBtn {
@@ -107,16 +102,6 @@
       font-size: 22px;
       font-weight: bold;
       min-height: 30px;
-    }
-
-    .correct {
-      animation: correct 0.4s;
-    }
-
-    @keyframes correct {
-      50% {
-        transform: scale(1.3);
-      }
     }
 
     #gameScreen,
@@ -139,7 +124,7 @@
 
 <div class="container">
 
-  <!-- START SCREEN -->
+  <!-- START -->
   <div id="startScreen" class="card">
 
     <h1>🦁 BILO GAME 🐘</h1>
@@ -165,7 +150,7 @@
   </div>
 
 
-  <!-- GAME SCREEN -->
+  <!-- GAME -->
   <div id="gameScreen" class="card">
 
     <h1>🦁 Bilo Game</h1>
@@ -174,6 +159,10 @@
       👤 Player:
       <strong><span id="name"></span></strong>
     </p>
+
+    <button class="soundBtn" onclick="toggleSound()">
+      🔊 SOUND: ON
+    </button>
 
     <div class="info">
       ⭐ Point: <span id="score">0</span>
@@ -235,6 +224,8 @@
   let lives = 3;
   let level = 1;
   let correctAnimal = "";
+  let soundOn = true;
+  let audioCtx = null;
 
   const animals = [
     "🦁",
@@ -244,6 +235,63 @@
   ];
 
 
+  // SAGALEE
+  function playSound(type) {
+
+    if (!soundOn) return;
+
+    if (!audioCtx) {
+      audioCtx = new (
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
+    }
+
+    const oscillator = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    if (type === "correct") {
+      oscillator.frequency.value = 700;
+    }
+
+    if (type === "wrong") {
+      oscillator.frequency.value = 180;
+    }
+
+    if (type === "level") {
+      oscillator.frequency.value = 1000;
+    }
+
+    gain.gain.value = 0.15;
+
+    oscillator.start();
+
+    setTimeout(function () {
+      oscillator.stop();
+    }, 250);
+  }
+
+
+  // SOUND ON / OFF
+  function toggleSound() {
+
+    soundOn = !soundOn;
+
+    const button =
+      document.querySelector(".soundBtn");
+
+    if (soundOn) {
+      button.innerText = "🔊 SOUND: ON";
+    } else {
+      button.innerText = "🔇 SOUND: OFF";
+    }
+  }
+
+
+  // START GAME
   function startGame() {
 
     const name =
@@ -254,13 +302,14 @@
       return;
     }
 
-    document.getElementById("name").innerText = name;
+    document.getElementById("name").innerText =
+      name;
 
-    document.getElementById("startScreen").style.display =
-      "none";
+    document.getElementById("startScreen")
+      .style.display = "none";
 
-    document.getElementById("gameScreen").style.display =
-      "block";
+    document.getElementById("gameScreen")
+      .style.display = "block";
 
     score = 0;
     lives = 3;
@@ -271,47 +320,48 @@
   }
 
 
+  // HAARAA
   function newRound() {
 
     const random =
-      Math.floor(Math.random() * animals.length);
+      Math.floor(
+        Math.random() * animals.length
+      );
 
     correctAnimal = animals[random];
 
-    document.getElementById("animal").innerText =
-      correctAnimal;
+    document.getElementById("animal")
+      .innerText = correctAnimal;
 
-    document.getElementById("message").innerText =
+    document.getElementById("message")
+      .innerText =
       "Bineensa sirrii tuqi! 👆";
   }
 
 
+  // FILANNOO BINEENSAA
   function checkAnimal(animal) {
 
-    if (lives <= 0) {
-      return;
-    }
+    if (lives <= 0) return;
 
     if (animal === correctAnimal) {
 
       score += 10;
 
-      document.getElementById("message").innerText =
+      playSound("correct");
+
+      document.getElementById("message")
+        .innerText =
         "🎉 Sirrii! +10 ⭐";
-
-      document.getElementById("animal").classList.add("correct");
-
-      setTimeout(function () {
-        document.getElementById("animal")
-          .classList.remove("correct");
-      }, 400);
-
 
       if (score >= level * 50) {
 
         level++;
 
-        document.getElementById("message").innerText =
+        playSound("level");
+
+        document.getElementById("message")
+          .innerText =
           "🔥 LEVEL " + level + "!";
       }
 
@@ -319,7 +369,10 @@
 
       lives--;
 
-      document.getElementById("message").innerText =
+      playSound("wrong");
+
+      document.getElementById("message")
+        .innerText =
         "❌ Dogoggora! ❤️ -1";
 
       if (lives <= 0) {
@@ -335,73 +388,81 @@
   }
 
 
+  // UPDATE
   function updateInfo() {
 
-    document.getElementById("score").innerText =
-      score;
+    document.getElementById("score")
+      .innerText = score;
 
-    document.getElementById("lives").innerText =
-      lives;
+    document.getElementById("lives")
+      .innerText = lives;
 
-    document.getElementById("level").innerText =
-      level;
+    document.getElementById("level")
+      .innerText = level;
   }
 
 
+  // GAME OVER
   function gameOver() {
 
-    document.getElementById("gameScreen").style.display =
-      "none";
+    document.getElementById("gameScreen")
+      .style.display = "none";
 
-    document.getElementById("gameOver").style.display =
-      "block";
+    document.getElementById("gameOver")
+      .style.display = "block";
 
-    document.getElementById("finalScore").innerText =
-      score;
+    document.getElementById("finalScore")
+      .innerText = score;
 
-    document.getElementById("finalMessage").innerText =
+    document.getElementById("finalMessage")
+      .innerText =
       "Galatoomi " +
       document.getElementById("name").innerText +
       "! 🎮";
   }
 
 
+  // RESTART
   function restartGame() {
 
-    document.getElementById("gameOver").style.display =
-      "none";
+    document.getElementById("gameOver")
+      .style.display = "none";
 
-    document.getElementById("startScreen").style.display =
-      "block";
+    document.getElementById("startScreen")
+      .style.display = "block";
 
-    document.getElementById("playerName").value =
-      "";
+    document.getElementById("playerName")
+      .value = "";
   }
 
 
-  // Service Worker
+  // SERVICE WORKER
   if ("serviceWorker" in navigator) {
 
-    window.addEventListener("load", function () {
+    window.addEventListener(
+      "load",
+      function () {
 
-      navigator.serviceWorker.register(
-        "./pwabuilder-sw%20(1).js"
-      )
-      .then(function () {
-        console.log("Service Worker registered!");
-      })
-      .catch(function (error) {
-        console.log(
-          "Service Worker registration failed:",
-          error
-        );
-      });
+        navigator.serviceWorker.register(
+          "./pwabuilder-sw%20(1).js"
+        )
+        .then(function () {
+          console.log(
+            "Service Worker registered!"
+          );
+        })
+        .catch(function (error) {
+          console.log(
+            "Service Worker registration failed:",
+            error
+          );
+        });
 
-    });
-
+      }
+    );
   }
 
 </script>
 
 </body>
-</html
+</html>
