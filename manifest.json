@@ -1,12 +1,11 @@
 {
-  "background_color": "#ffffff",
-  "dir": "ltr",
-  "display": "standalone",
   "name": "Bilo Game",
-  "orientation": "any",
-  "scope": "/",
   "short_name": "Bilo",
-  "start_url": "/",
+  "description": "Bilo Game bineensota",
+  "start_url": "/Bilo-Game/",
+  "display": "standalone",
+  "background_color": "#ffffff",
   "theme_color": "#ffffff",
-  "description": "Bilo Game bineensota"
+  "orientation": "portrait",
+  "scope": "/Bilo-Game/"
 }
