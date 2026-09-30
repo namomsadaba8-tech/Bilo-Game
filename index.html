@@ -3,68 +3,152 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1b5e20">
 
   <link rel="manifest" href="manifest.json">
 
   <title>Bilo Game</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      text-align: center;
+      margin: 0;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: #e8f5e9;
+      text-align: center;
+      background: linear-gradient(135deg, #e8f5e9, #b9f6ca);
       padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
     }
 
     h1 {
       color: #1b5e20;
+      font-size: 32px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      margin-top: 20px;
     }
 
     input {
+      width: 90%;
+      max-width: 400px;
       font-size: 20px;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #aaa;
-      margin: 10px;
+      padding: 14px;
+      border-radius: 12px;
+      border: 2px solid #81c784;
+      margin: 15px 0;
+      text-align: center;
     }
 
     button {
-      font-size: 20px;
-      padding: 14px 20px;
+      font-size: 19px;
+      padding: 14px 18px;
       margin: 7px;
       border-radius: 15px;
       border: none;
-      background: white;
+      background: #ffffff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
       cursor: pointer;
     }
 
-    #animal {
-      font-size: 100px;
-      margin: 25px;
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .startBtn {
+      background: #2e7d32;
+      color: white;
+      font-weight: bold;
+      width: 80%;
     }
 
     .info {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1.8;
+      background: #f1f8e9;
+      padding: 12px;
+      border-radius: 15px;
+      margin: 15px 0;
+    }
+
+    #animal {
+      font-size: 110px;
+      margin: 20px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-10px);
+      }
+    }
+
+    .animalBtn {
+      min-width: 130px;
+    }
+
+    #message {
       font-size: 22px;
       font-weight: bold;
+      min-height: 30px;
+    }
+
+    .correct {
+      animation: correct 0.4s;
+    }
+
+    @keyframes correct {
+      50% {
+        transform: scale(1.3);
+      }
     }
 
     #gameScreen,
     #gameOver {
       display: none;
     }
+
+    .gameOverTitle {
+      color: #c62828;
+    }
+
+    .restartBtn {
+      background: #1565c0;
+      color: white;
+    }
   </style>
 </head>
 
 <body>
 
+<div class="container">
+
   <!-- START SCREEN -->
-  <div id="startScreen">
+  <div id="startScreen" class="card">
 
-    <h1>🦁 GAME BINEENSOTAA 🐘</h1>
+    <h1>🦁 BILO GAME 🐘</h1>
 
-    <h2>🎮 Baga nagaan dhuftan!</h2>
+    <h2>🎮 Baga Nagaan Dhuftan!</h2>
 
-    <p>Maqaa kee galchi:</p>
+    <p>Game bineensotaa taphadhu!</p>
+
+    <p>👤 Maqaa kee galchi:</p>
 
     <input
       id="playerName"
@@ -74,7 +158,7 @@
 
     <br>
 
-    <button onclick="startGame()">
+    <button class="startBtn" onclick="startGame()">
       ▶️ START GAME
     </button>
 
@@ -82,213 +166,242 @@
 
 
   <!-- GAME SCREEN -->
-  <div id="gameScreen">
+  <div id="gameScreen" class="card">
 
     <h1>🦁 Bilo Game</h1>
 
-    <p>👤 Player: <span id="name"></span></p>
+    <p>
+      👤 Player:
+      <strong><span id="name"></span></strong>
+    </p>
 
     <div class="info">
-      🏆 Point: <span id="score">0</span>
+      ⭐ Point: <span id="score">0</span>
       <br>
       ❤️ Lives: <span id="lives">3</span>
       <br>
-      📈 Level: <span id="level">1</span>
+      🏆 Level: <span id="level">1</span>
     </div>
 
-    <h2>Bineensa kana tuqi:</h2>
+    <h2>Bineensa kana tuqi 👇</h2>
 
     <div id="animal">🦁</div>
 
-    <button onclick="checkAnimal('🦁')">
+    <button class="animalBtn" onclick="checkAnimal('🦁')">
       🦁 Leenca
     </button>
 
-    <button onclick="checkAnimal('🐘')">
+    <button class="animalBtn" onclick="checkAnimal('🐘')">
       🐘 Arbaa
     </button>
 
-    <button onclick="checkAnimal('🐒')">
+    <button class="animalBtn" onclick="checkAnimal('🐒')">
       🐒 Jaldeessa
     </button>
 
-    <button onclick="checkAnimal('🐕')">
+    <button class="animalBtn" onclick="checkAnimal('🐕')">
       🐕 Saree
     </button>
 
-    <p id="message"></p>
+    <p id="message">Bineensa sirrii tuqi! 👆</p>
 
   </div>
 
 
   <!-- GAME OVER -->
-  <div id="gameOver">
+  <div id="gameOver" class="card">
 
-    <h1>💔 GAME OVER</h1>
+    <h1 class="gameOverTitle">💔 GAME OVER</h1>
 
     <h2 id="finalMessage"></h2>
 
     <h2>
-      🏆 Point kee:
+      ⭐ Point kee:
       <span id="finalScore">0</span>
     </h2>
 
-    <button onclick="restartGame()">
+    <button class="restartBtn" onclick="restartGame()">
       🔄 RESTART
     </button>
 
   </div>
 
+</div>
 
-  <script>
-    let score = 0;
-    let lives = 3;
-    let level = 1;
-    let correctAnimal = "";
 
-    const animals = [
-      "🦁",
-      "🐘",
-      "🐒",
-      "🐕"
-    ];
+<script>
 
-    function startGame() {
+  let score = 0;
+  let lives = 3;
+  let level = 1;
+  let correctAnimal = "";
 
-      let name =
-        document.getElementById("playerName").value;
+  const animals = [
+    "🦁",
+    "🐘",
+    "🐒",
+    "🐕"
+  ];
 
-      if (name.trim() === "") {
-        alert("Maaloo maqaa kee galchi!");
-        return;
-      }
 
-      document.getElementById("name").innerText = name;
+  function startGame() {
 
-      document.getElementById("startScreen").style.display =
-        "none";
+    const name =
+      document.getElementById("playerName").value;
 
-      document.getElementById("gameScreen").style.display =
-        "block";
-
-      score = 0;
-      lives = 3;
-      level = 1;
-
-      updateInfo();
-      newRound();
+    if (name.trim() === "") {
+      alert("Maaloo maqaa kee galchi!");
+      return;
     }
 
+    document.getElementById("name").innerText = name;
 
-    function newRound() {
+    document.getElementById("startScreen").style.display =
+      "none";
 
-      let random =
-        Math.floor(Math.random() * animals.length);
+    document.getElementById("gameScreen").style.display =
+      "block";
 
-      correctAnimal = animals[random];
+    score = 0;
+    lives = 3;
+    level = 1;
 
-      document.getElementById("animal").innerText =
-        correctAnimal;
+    updateInfo();
+    newRound();
+  }
+
+
+  function newRound() {
+
+    const random =
+      Math.floor(Math.random() * animals.length);
+
+    correctAnimal = animals[random];
+
+    document.getElementById("animal").innerText =
+      correctAnimal;
+
+    document.getElementById("message").innerText =
+      "Bineensa sirrii tuqi! 👆";
+  }
+
+
+  function checkAnimal(animal) {
+
+    if (lives <= 0) {
+      return;
+    }
+
+    if (animal === correctAnimal) {
+
+      score += 10;
 
       document.getElementById("message").innerText =
-        "Bineensa sirrii tuqi! 👆";
-    }
+        "🎉 Sirrii! +10 ⭐";
+
+      document.getElementById("animal").classList.add("correct");
+
+      setTimeout(function () {
+        document.getElementById("animal")
+          .classList.remove("correct");
+      }, 400);
 
 
-    function checkAnimal(animal) {
+      if (score >= level * 50) {
+
+        level++;
+
+        document.getElementById("message").innerText =
+          "🔥 LEVEL " + level + "!";
+      }
+
+    } else {
+
+      lives--;
+
+      document.getElementById("message").innerText =
+        "❌ Dogoggora! ❤️ -1";
 
       if (lives <= 0) {
+        updateInfo();
+        gameOver();
         return;
       }
-
-      if (animal === correctAnimal) {
-
-        score += 10;
-
-        document.getElementById("message").innerText =
-          "🎉 Sirrii! +10";
-
-        if (score >= level * 50) {
-
-          level++;
-
-          document.getElementById("message").innerText =
-            "🔥 Level " + level + "!";
-        }
-
-      } else {
-
-        lives--;
-
-        document.getElementById("message").innerText =
-          "❌ Dogoggora!";
-
-        if (lives <= 0) {
-          gameOver();
-          return;
-        }
-      }
-
-      updateInfo();
-
-      setTimeout(newRound, 700);
     }
 
+    updateInfo();
 
-    function updateInfo() {
-
-      document.getElementById("score").innerText =
-        score;
-
-      document.getElementById("lives").innerText =
-        lives;
-
-      document.getElementById("level").innerText =
-        level;
-    }
+    setTimeout(newRound, 700);
+  }
 
 
-    function gameOver() {
+  function updateInfo() {
 
-      document.getElementById("gameScreen").style.display =
-        "none";
+    document.getElementById("score").innerText =
+      score;
 
-      document.getElementById("gameOver").style.display =
-        "block";
+    document.getElementById("lives").innerText =
+      lives;
 
-      document.getElementById("finalScore").innerText =
-        score;
-
-      document.getElementById("finalMessage").innerText =
-        "Galatoomi taphachuu keetiif! 🎮";
-    }
+    document.getElementById("level").innerText =
+      level;
+  }
 
 
-    function restartGame() {
+  function gameOver() {
 
-      document.getElementById("gameOver").style.display =
-        "none";
+    document.getElementById("gameScreen").style.display =
+      "none";
 
-      document.getElementById("startScreen").style.display =
-        "block";
+    document.getElementById("gameOver").style.display =
+      "block";
 
-      document.getElementById("playerName").value = "";
-    }
+    document.getElementById("finalScore").innerText =
+      score;
+
+    document.getElementById("finalMessage").innerText =
+      "Galatoomi " +
+      document.getElementById("name").innerText +
+      "! 🎮";
+  }
 
 
-    // Service Worker
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function () {
-        navigator.serviceWorker.register("./pwabuilder-sw%20(1).js")
-          .then(function () {
-            console.log("Service Worker registered!");
-          })
-          .catch(function (error) {
-            console.log("Service Worker registration failed:", error);
-          });
+  function restartGame() {
+
+    document.getElementById("gameOver").style.display =
+      "none";
+
+    document.getElementById("startScreen").style.display =
+      "block";
+
+    document.getElementById("playerName").value =
+      "";
+  }
+
+
+  // Service Worker
+  if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", function () {
+
+      navigator.serviceWorker.register(
+        "./pwabuilder-sw%20(1).js"
+      )
+      .then(function () {
+        console.log("Service Worker registered!");
+      })
+      .catch(function (error) {
+        console.log(
+          "Service Worker registration failed:",
+          error
+        );
       });
-    }
-  </script>
+
+    });
+
+  }
+
+</script>
 
 </body>
-</html>
+</html
