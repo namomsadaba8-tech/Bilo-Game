@@ -1,4 +1,4 @@
-Writing
+     ng
 <!DOCTYPE html>
 <html lang="om">
 <head>
@@ -20,28 +20,7 @@ Writing
       padding: 20px;
     }
 
-    .container {
-      max-width: 600px;
-      margin: auto;
-    }
-
-    h1 { color: #1b5e20; }
-
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.15);
-      margin-top: 20px;
-    }
-
-    input {
-      width: 90%;
-      max-width: 400px;
-      font-size: 20px;
-      padding: 14px;
-      border-radius: 12px;
-      border: 2px solid #81c784;
+    
       margin: 15px 0;
       text-align: center;
     }
@@ -370,99 +349,3 @@ Writing
       lives--;
 
       playSound("wrong");
-
-      document.getElementById("message")
-        .innerText =
-        "❌ Dogoggora! ❤️ -1";
-
-      if (lives <= 0) {
-        updateInfo();
-        gameOver();
-        return;
-      }
-    }
-
-    updateInfo();
-
-    setTimeout(newRound, 700);
-  }
-
-
-  // UPDATE
-  function updateInfo() {
-
-    document.getElementById("score")
-      .innerText = score;
-
-    document.getElementById("lives")
-      .innerText = lives;
-
-    document.getElementById("level")
-      .innerText = level;
-  }
-
-
-  // GAME OVER
-  function gameOver() {
-
-    document.getElementById("gameScreen")
-      .style.display = "none";
-
-    document.getElementById("gameOver")
-      .style.display = "block";
-
-    document.getElementById("finalScore")
-      .innerText = score;
-
-    document.getElementById("finalMessage")
-      .innerText =
-      "Galatoomi " +
-      document.getElementById("name").innerText +
-      "! 🎮";
-  }
-
-
-  // RESTART
-  function restartGame() {
-
-    document.getElementById("gameOver")
-      .style.display = "none";
-
-    document.getElementById("startScreen")
-      .style.display = "block";
-
-    document.getElementById("playerName")
-      .value = "";
-  }
-
-
-  // SERVICE WORKER
-  if ("serviceWorker" in navigator) {
-
-    window.addEventListener(
-      "load",
-      function () {
-
-        navigator.serviceWorker.register(
-          "./pwabuilder-sw%20(1).js"
-        )
-        .then(function () {
-          console.log(
-            "Service Worker registered!"
-          );
-        })
-        .catch(function (error) {
-          console.log(
-            "Service Worker registration failed:",
-            error
-          );
-        });
-
-      }
-    );
-  }
-
-</script>
-
-</body>
-</html>
