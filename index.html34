@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="manifest" href="manifest.json">
+
+  <title>Bilo Game</title>
+
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: #e8f5e9;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #1b5e20;
+    }
+
+    input {
+      font-size: 20px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #aaa;
+      margin: 10px;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 14px 20px;
+      margin: 7px;
+      border-radius: 15px;
+      border: none;
+      background: white;
+      cursor: pointer;
+    }
+
+    #animal {
+      font-size: 100px;
+      margin: 25px;
+    }
+
+    .info {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    #gameScreen,
+    #gameOver {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- START SCREEN -->
+  <div id="startScreen">
+
+    <h1>🦁 GAME BINEENSOTAA 🐘</h1>
+
+    <h2>🎮 Baga nagaan dhuftan!</h2>
+
+    <p>Maqaa kee galchi:</p>
+
+    <input
+      id="playerName"
+      type="text"
+      placeholder="Maqaa kee"
+    >
+
+    <br>
+
+    <button onclick="startGame()">
+      ▶️ START GAME
+    </button>
+
+  </div>
+
+
+  <!-- GAME SCREEN -->
+  <div id="gameScreen">
+
+    <h1>🦁 Bilo Game</h1>
+
+    <p>👤 Player: <span id="name"></span></p>
+
+    <div class="info">
+      🏆 Point: <span id="score">0</span>
+      <br>
+      ❤️ Lives: <span id="lives">3</span>
+      <br>
+      📈 Level: <span id="level">1</span>
+    </div>
+
+    <h2>Bineensa kana tuqi:</h2>
+
+    <div id="animal">🦁</div>
+
+    <button onclick="checkAnimal('🦁')">
+      🦁 Leenca
+    </button>
+
+    <button onclick="checkAnimal('🐘')">
+      🐘 Arbaa
+    </button>
+
+    <button onclick="checkAnimal('🐒')">
+      🐒 Jaldeessa
+    </button>
+
+    <button onclick="checkAnimal('🐕')">
+      🐕 Saree
+    </button>
+
+    <p id="message"></p>
+
+  </div>
+
+
+  <!-- GAME OVER -->
+  <div id="gameOver">
+
+    <h1>💔 GAME OVER</h1>
+
+    <h2 id="finalMessage"></h2>
+
+    <h2>
+      🏆 Point kee:
+      <span id="finalScore">0</span>
+    </h2>
+
+    <button onclick="restartGame()">
+      🔄 RESTART
+    </button>
+
+  </div>
+
+
+  <script>
+    let score = 0;
+    let lives = 3;
+    let level = 1;
+    let correctAnimal = "";
+
+    const animals = [
+      "🦁",
+      "🐘",
+      "🐒",
+      "🐕"
+    ];
+
+    function startGame() {
+
+      let name =
+        document.getElementById("playerName").value;
+
+      if (name.trim() === "") {
+        alert("Maaloo maqaa kee galchi!");
+        return;
+      }
+
+      document.getElementById("name").innerText = name;
+
+      document.getElementById("startScreen").style.display =
+        "none";
+
+      document.getElementById("gameScreen").style.display =
+        "block";
+
+      score = 0;
+      lives = 3;
+      level = 1;
+
+      updateInfo();
+      newRound();
+    }
+
+
+    function newRound() {
+
+      let random =
+        Math.floor(Math.random() * animals.length);
+
+      correctAnimal = animals[random];
+
+      document.getElementById("animal").innerText =
+        correctAnimal;
+
+      document.getElementById("message").innerText =
+        "Bineensa sirrii tuqi! 👆";
+    }
+
+
+    function checkAnimal(animal) {
+
+      if (lives <= 0) {
+        return;
+      }
+
+      if (animal === correctAnimal) {
+
+        score += 10;
+
+        document.getElementById("message").innerText =
+          "🎉 Sirrii! +10";
+
+        if (score >= level * 50) {
+
+          level++;
+
+          document.getElementById("message").innerText =
+            "🔥 Level " + level + "!";
+        }
+
+      } else {
+
+        lives--;
+
+        document.getElementById("message").innerText =
+          "❌ Dogoggora!";
+
+        if (lives <= 0) {
+          gameOver();
+          return;
+        }
+      }
+
+      updateInfo();
+
+      setTimeout(newRound, 700);
+    }
+
+
+    function updateInfo() {
+
+      document.getElementById("score").innerText =
+        score;
+
+      document.getElementById("lives").innerText =
+        lives;
+
+      document.getElementById("level").innerText =
+        level;
+    }
+
+
+    function gameOver() {
+
+      document.getElementById("gameScreen").style.display =
+        "none";
+
+      document.getElementById("gameOver").style.display =
+        "block";
+
+      document.getElementById("finalScore").innerText =
+        score;
+
+      document.getElementById("finalMessage").innerText =
+        "Galatoomi taphachuu keetiif! 🎮";
+    }
+
+
+    function restartGame() {
+
+      document.getElementById("gameOver").style.display =
+        "none";
+
+      document.getElementById("startScreen").style.display =
+        "block";
+
+      document.getElementById("playerName").value = "";
+    }
+
+
+    // Service Worker
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("./pwabuilder-sw%20(1).js")
+          .then(function () {
+            console.log("Service Worker registered!");
+          })
+          .catch(function (error) {
+            console.log("Service Worker registration failed:", error);
+          });
+      });
+    }
+  </script>
+
+</body>
+</html>
