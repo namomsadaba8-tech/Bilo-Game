@@ -1,8 +1,11 @@
- <!DOCTYPE html>
-"<html lang="om>
+<!DOCTYPE html>
+<html lang="om">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="manifest" href="manifest.json">
+
 <title>Game Bineensotaa</title>
 
 <style>
@@ -56,7 +59,6 @@ button {
 
 <body>
 
-<!-- START SCREEN -->
 <div id="startScreen">
 
   <h1>🦁 GAME BINEENSOTAA 🐘</h1>
@@ -75,8 +77,6 @@ button {
 
 </div>
 
-
-<!-- GAME SCREEN -->
 <div id="gameScreen">
 
   <h1>🦁 Game Bineensotaa</h1>
@@ -95,28 +95,15 @@ button {
 
   <div id="animal">🦁</div>
 
-  <button onclick="checkAnimal('🦁')">
-    🦁 Leenca
-  </button>
-
-  <button onclick="checkAnimal('🐘')">
-    🐘 Arbaa
-  </button>
-
-  <button onclick="checkAnimal('🐒')">
-    🐒 Jaldeessa
-  </button>
-
-  <button onclick="checkAnimal('🐕')">
-    🐕 Saree
-  </button>
+  <button onclick="checkAnimal('🦁')">🦁 Leenca</button>
+  <button onclick="checkAnimal('🐘')">🐘 Arbaa</button>
+  <button onclick="checkAnimal('🐒')">🐒 Jaldeessa</button>
+  <button onclick="checkAnimal('🐕')">🐕 Saree</button>
 
   <p id="message"></p>
 
 </div>
 
-
-<!-- GAME OVER -->
 <div id="gameOver">
 
   <h1>💔 GAME OVER</h1>
@@ -128,12 +115,9 @@ button {
     <span id="finalScore">0</span>
   </h2>
 
-  <button onclick="restartGame()">
-    🔄 RESTART
-  </button>
+  <button onclick="restartGame()">🔄 RESTART</button>
 
 </div>
-
 
 <script>
 
@@ -149,51 +133,39 @@ const animals = [
   "🐕"
 ];
 
-
 function startGame() {
 
-  let name =
-    document.getElementById("playerName").value;
+  let name = document.getElementById("playerName").value;
 
   if (name.trim() === "") {
-
     alert("Maaloo maqaa kee galchi!");
-
     return;
   }
 
   document.getElementById("name").innerText = name;
 
-  document.getElementById("startScreen").style.display =
-    "none";
-
-  document.getElementById("gameScreen").style.display =
-    "block";
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("gameScreen").style.display = "block";
 
   score = 0;
   lives = 3;
   level = 1;
 
   updateInfo();
-
   newRound();
 }
 
-
 function newRound() {
 
-  let random =
-    Math.floor(Math.random() * animals.length);
+  let random = Math.floor(Math.random() * animals.length);
 
   correctAnimal = animals[random];
 
-  document.getElementById("animal").innerText =
-    correctAnimal;
+  document.getElementById("animal").innerText = correctAnimal;
 
   document.getElementById("message").innerText =
     "Bineensa sirrii tuqi! 👆";
 }
-
 
 function checkAnimal(animal) {
 
@@ -226,7 +198,6 @@ function checkAnimal(animal) {
     if (lives <= 0) {
 
       gameOver();
-
       return;
     }
   }
@@ -236,43 +207,28 @@ function checkAnimal(animal) {
   setTimeout(newRound, 700);
 }
 
-
 function updateInfo() {
 
-  document.getElementById("score").innerText =
-    score;
-
-  document.getElementById("lives").innerText =
-    lives;
-
-  document.getElementById("level").innerText =
-    level;
+  document.getElementById("score").innerText = score;
+  document.getElementById("lives").innerText = lives;
+  document.getElementById("level").innerText = level;
 }
-
 
 function gameOver() {
 
-  document.getElementById("gameScreen").style.display =
-    "none";
+  document.getElementById("gameScreen").style.display = "none";
+  document.getElementById("gameOver").style.display = "block";
 
-  document.getElementById("gameOver").style.display =
-    "block";
-
-  document.getElementById("finalScore").innerText =
-    score;
+  document.getElementById("finalScore").innerText = score;
 
   document.getElementById("finalMessage").innerText =
     "Galatoomi taphachuu keetiif! 🎮";
 }
 
-
 function restartGame() {
 
-  document.getElementById("gameOver").style.display =
-    "none";
-
-  document.getElementById("startScreen").style.display =
-    "block";
+  document.getElementById("gameOver").style.display = "none";
+  document.getElementById("startScreen").style.display = "block";
 
   document.getElementById("playerName").value = "";
 }
