@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>BILO SHOP</title>
+
+<meta name="description" content="BILO SHOP - Electronics and Smart Products">
+<meta name="theme-color" content="#2563eb">
+
+<link rel="manifest" href="./manifest.json">
 
 <style>
 *{
@@ -34,7 +40,6 @@ header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
 }
 
 .logo{
@@ -130,10 +135,6 @@ nav button{
   font-weight:bold;
 }
 
-.category:hover{
-  background:#e0f2fe;
-}
-
 .products{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -145,11 +146,6 @@ nav button{
   border-radius:18px;
   overflow:hidden;
   box-shadow:0 4px 15px #0002;
-  transition:.2s;
-}
-
-.product:hover{
-  transform:translateY(-4px);
 }
 
 .product-img{
@@ -185,7 +181,6 @@ nav button{
   color:#6b7280;
   font-size:14px;
   line-height:1.4;
-  min-height:40px;
 }
 
 .product button{
@@ -216,7 +211,6 @@ section{
   align-items:center;
   padding:12px 0;
   border-bottom:1px solid #eee;
-  gap:10px;
 }
 
 .remove{
@@ -234,7 +228,8 @@ section{
   color:#16a34a;
 }
 
-form input,form textarea{
+form input,
+form textarea{
   width:100%;
   padding:13px;
   margin:7px 0;
@@ -246,7 +241,8 @@ form textarea{
   min-height:100px;
 }
 
-.order-btn,.whatsapp{
+.order-btn,
+.whatsapp{
   display:block;
   width:100%;
   text-align:center;
@@ -285,6 +281,7 @@ footer{
 }
 
 @media(max-width:800px){
+
   .products{
     grid-template-columns:repeat(2,1fr);
   }
@@ -299,6 +296,7 @@ footer{
 }
 
 @media(max-width:450px){
+
   .products{
     grid-template-columns:repeat(2,1fr);
     gap:10px;
@@ -331,166 +329,254 @@ footer{
 <body>
 
 <header>
-  <div class="header-box">
-    <div class="logo">🛍️ BILO SHOP</div>
-    <button class="cart-top" onclick="showCart()">
-      🛒 Cart (<span id="cartCount">0</span>)
-    </button>
-  </div>
 
-  <nav>
-    <button onclick="goHome()">Home</button>
-    <button onclick="goProducts()">Products</button>
-    <button onclick="showCart()">Cart</button>
-    <button onclick="goOrder()">Order</button>
-    <button onclick="goPayment()">Payment</button>
-    <button onclick="goContact()">Contact</button>
-  </nav>
+<div class="header-box">
+
+<div class="logo">
+🛍️ BILO SHOP
+</div>
+
+<button class="cart-top" onclick="showCart()">
+🛒 Cart (<span id="cartCount">0</span>)
+</button>
+
+</div>
+
+<nav>
+
+<button onclick="goHome()">Home</button>
+
+<button onclick="goProducts()">Products</button>
+
+<button onclick="showCart()">Cart</button>
+
+<button onclick="goOrder()">Order</button>
+
+<button onclick="goPayment()">Payment</button>
+
+<button onclick="goContact()">Contact</button>
+
+</nav>
+
 </header>
 
+
 <div class="hero">
-  <h1>Shop Smart. Live Better.</h1>
-  <p>Electronics & Smart Products</p>
-  <button class="shop-btn" onclick="goProducts()">SHOP NOW</button>
+
+<h1>Shop Smart. Live Better.</h1>
+
+<p>Electronics & Smart Products</p>
+
+<button class="shop-btn" onclick="goProducts()">
+SHOP NOW
+</button>
+
 </div>
+
 
 <div class="container">
 
 <section id="productsSection">
 
-  <h2 class="title">🔍 Find Your Product</h2>
+<h2 class="title">
+🔍 Find Your Product
+</h2>
 
-  <input
-    type="text"
-    id="search"
-    class="search"
-    placeholder="Search product..."
-    onkeyup="searchProducts()"
-  >
-
-  <h2 class="title">Categories</h2>
-
-  <div class="categories">
-    <button class="category" onclick="filterProducts('All')">🛍️ All</button>
-    <button class="category" onclick="filterProducts('Phones')">📱 Phones</button>
-    <button class="category" onclick="filterProducts('Headphones')">🎧 Headphones</button>
-    <button class="category" onclick="filterProducts('Watch')">⌚ Smart Watch</button>
-  </div>
-
-  <h2 class="title">🛒 Our Products</h2>
-
-  <div class="products" id="productList"></div>
-
-</section>
+<input
+type="text"
+id="search"
+class="search"
+placeholder="Search product..."
+onkeyup="searchProducts()"
+>
 
 
-<section id="cartSection" class="hidden">
-
-  <h2 class="title">🛒 Your Cart</h2>
-
-  <div class="card">
-    <div id="cartItems"></div>
-    <div class="total">
-      Total: <span id="cartTotal">0</span> Birr
-    </div>
-  </div>
-
-</section>
+<h2 class="title">
+Categories
+</h2>
 
 
-<section id="orderSection" class="hidden">
+<div class="categories">
 
-  <h2 class="title">📦 Place Your Order</h2>
+<button class="category"
+onclick="filterProducts('All')">
+🛍️ All
+</button>
 
-  <div class="card">
+<button class="category"
+onclick="filterProducts('Phones')">
+📱 Phones
+</button>
 
-    <form onsubmit="sendOrder(event)">
+<button class="category"
+onclick="filterProducts('Headphones')">
+🎧 Headphones
+</button>
 
-      <input
-        type="text"
-        id="customerName"
-        placeholder="Your Name"
-        required
-      >
+<button class="category"
+onclick="filterProducts('Watch')">
+⌚ Smart Watch
+</button>
 
-      <input
-        type="tel"
-        id="customerPhone"
-        placeholder="Phone Number"
-        required
-      >
+</div>
 
-      <input
-        type="text"
-        id="customerAddress"
-        placeholder="Your Address"
-        required
-      >
 
-      <textarea
-        id="customerMessage"
-        placeholder="Order details..."
-        required
-      ></textarea>
+<h2 class="title">
+🛒 Our Products
+</h2>
 
-      <button class="order-btn" type="submit">
-        📲 Send Order on WhatsApp
-      </button>
 
-    </form>
-
-  </div>
+<div
+class="products"
+id="productList">
+</div>
 
 </section>
 
 
-<section id="paymentSection" class="hidden">
 
-  <h2 class="title">💳 Payment</h2>
+<section
+id="cartSection"
+class="hidden">
 
-  <div class="card payment">
+<h2 class="title">
+🛒 Your Cart
+</h2>
 
-    <h3>Payment Information</h3>
+<div class="card">
 
-    <p style="margin-top:10px;">
-      After placing your order, contact BILO SHOP Customer Service
-      to receive payment instructions.
-    </p>
+<div id="cartItems">
+</div>
 
-    <a
-      class="whatsapp"
-      href="https://wa.me/251921198754"
-      target="_blank"
-    >
-      💬 Contact Customer Service
-    </a>
+<div class="total">
+Total:
+<span id="cartTotal">0</span>
+Birr
+</div>
 
-  </div>
+</div>
 
 </section>
 
 
-<section id="contactSection" class="hidden">
 
-  <h2 class="title">📞 Contact Us</h2>
+<section
+id="orderSection"
+class="hidden">
 
-  <div class="card">
+<h2 class="title">
+📦 Place Your Order
+</h2>
 
-    <h3>Customer Service</h3>
+<div class="card">
 
-    <p style="margin:12px 0;">
-      📞 +125921198754
-    </p>
+<form onsubmit="sendOrder(event)">
 
-    <a
-      class="whatsapp"
-      href="https://wa.me/251921198754"
-      target="_blank"
-    >
-      💬 Chat on WhatsApp
-    </a>
+<input
+type="text"
+id="customerName"
+placeholder="Your Name"
+required
+>
 
-  </div>
+<input
+type="tel"
+id="customerPhone"
+placeholder="Phone Number"
+required
+>
+
+<input
+type="text"
+id="customerAddress"
+placeholder="Your Address"
+required
+>
+
+<textarea
+id="customerMessage"
+placeholder="Order details..."
+required>
+</textarea>
+
+<button
+class="order-btn"
+type="submit">
+
+📲 Send Order on WhatsApp
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+
+<section
+id="paymentSection"
+class="hidden">
+
+<h2 class="title">
+💳 Payment
+</h2>
+
+<div class="card payment">
+
+<h3>
+Payment Information
+</h3>
+
+<p style="margin-top:10px;">
+After placing your order, contact BILO SHOP
+Customer Service to receive payment instructions.
+</p>
+
+<a
+class="whatsapp"
+href="https://wa.me/251921198754"
+target="_blank">
+
+💬 Contact Customer Service
+
+</a>
+
+</div>
+
+</section>
+
+
+
+<section
+id="contactSection"
+class="hidden">
+
+<h2 class="title">
+📞 Contact Us
+</h2>
+
+<div class="card">
+
+<h3>
+Customer Service
+</h3>
+
+<p style="margin:12px 0;">
+📞 +125921198754
+</p>
+
+<a
+class="whatsapp"
+href="https://wa.me/251921198754"
+target="_blank">
+
+💬 Chat on WhatsApp
+
+</a>
+
+</div>
 
 </section>
 
@@ -498,13 +584,19 @@ footer{
 
 
 <footer>
-  <h3>🛍️ BILO SHOP</h3>
-  <p style="margin-top:8px;">
-    Electronics & Smart Products
-  </p>
-  <p style="margin-top:8px;">
-    © 2026 BILO SHOP
-  </p>
+
+<h3>
+🛍️ BILO SHOP
+</h3>
+
+<p style="margin-top:8px;">
+Electronics & Smart Products
+</p>
+
+<p style="margin-top:8px;">
+© 2026 BILO SHOP
+</p>
+
 </footer>
 
 
@@ -512,77 +604,77 @@ footer{
 
 const products = [
 
-  {
-    id:1,
-    name:"Smart Phone",
-    category:"Phones",
-    price:15000,
-    icon:"📱",
-    description:"Modern smartphone with excellent performance."
-  },
+{
+id:1,
+name:"Smart Phone",
+category:"Phones",
+price:15000,
+icon:"📱",
+description:"Modern smartphone with excellent performance."
+},
 
-  {
-    id:2,
-    name:"Premium Headphone",
-    category:"Headphones",
-    price:1500,
-    icon:"🎧",
-    description:"Clear sound and comfortable wireless headphone."
-  },
+{
+id:2,
+name:"Premium Headphone",
+category:"Headphones",
+price:1500,
+icon:"🎧",
+description:"Clear sound and comfortable wireless headphone."
+},
 
-  {
-    id:3,
-    name:"Smart Watch",
-    category:"Watch",
-    price:2500,
-    icon:"⌚",
-    description:"Stylish smart watch for everyday use."
-  },
+{
+id:3,
+name:"Smart Watch",
+category:"Watch",
+price:2500,
+icon:"⌚",
+description:"Stylish smart watch for everyday use."
+},
 
-  {
-    id:4,
-    name:"Bluetooth Speaker",
-    category:"Speakers",
-    price:2000,
-    icon:"🔊",
-    description:"Portable speaker with powerful sound."
-  },
+{
+id:4,
+name:"Bluetooth Speaker",
+category:"Speakers",
+price:2000,
+icon:"🔊",
+description:"Portable speaker with powerful sound."
+},
 
-  {
-    id:5,
-    name:"Wireless Earbuds",
-    category:"Headphones",
-    price:1200,
-    icon:"🎶",
-    description:"Small and comfortable wireless earbuds."
-  },
+{
+id:5,
+name:"Wireless Earbuds",
+category:"Headphones",
+price:1200,
+icon:"🎶",
+description:"Small and comfortable wireless earbuds."
+},
 
-  {
-    id:6,
-    name:"Power Bank",
-    category:"Accessories",
-    price:1800,
-    icon:"🔋",
-    description:"Reliable power bank for charging your phone."
-  },
+{
+id:6,
+name:"Power Bank",
+category:"Accessories",
+price:1800,
+icon:"🔋",
+description:"Reliable power bank for charging your phone."
+},
 
-  {
-    id:7,
-    name:"Smart Tablet",
-    category:"Phones",
-    price:8500,
-    icon:"📲",
-    description:"Large screen tablet for work and entertainment."
-  },
+{
+id:7,
+name:"Smart Tablet",
+category:"Phones",
+price:8500,
+icon:"📲",
+description:"Large screen tablet for work and entertainment."
+},
 
-  {
-    id:8,
-    name:"USB Charger",
-    category:"Accessories",
-    price:700,
-    icon:"🔌",
-    description:"Fast and reliable USB charger."
-  }
+{
+id:8,
+name:"USB Charger",
+category:"Accessories",
+price:700,
+icon:"🔌",
+description:"Fast and reliable USB charger."
+}
 
 ];
 
@@ -590,60 +682,52 @@ const products = [
 let cart = [];
 
 
-
 function displayProducts(list = products){
 
-  const productList =
-    document.getElementById("productList");
+const productList =
+document.getElementById("productList");
 
-  productList.innerHTML = "";
+productList.innerHTML = "";
 
-  if(list.length === 0){
+list.forEach(product => {
 
-    productList.innerHTML =
-      "<p style='text-align:center;'>Product not found.</p>";
+productList.innerHTML += `
 
-    return;
-  }
+<div class="product">
 
+<div class="product-img">
+${product.icon}
+</div>
 
-  list.forEach(product => {
+<div class="product-info">
 
-    productList.innerHTML += `
+<h3>
+${product.name}
+</h3>
 
-      <div class="product">
+<div class="category-name">
+${product.category}
+</div>
 
-        <div class="product-img">
-          ${product.icon}
-        </div>
+<div class="price">
+${product.price.toLocaleString()} Birr
+</div>
 
-        <div class="product-info">
+<div class="desc">
+${product.description}
+</div>
 
-          <h3>${product.name}</h3>
+<button onclick="addToCart(${product.id})">
+🛒 Add to Cart
+</button>
 
-          <div class="category-name">
-            ${product.category}
-          </div>
+</div>
 
-          <div class="price">
-            ${product.price.toLocaleString()} Birr
-          </div>
+</div>
 
-          <div class="desc">
-            ${product.description}
-          </div>
+`;
 
-          <button onclick="addToCart(${product.id})">
-            🛒 Add to Cart
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
+});
 
 }
 
@@ -651,14 +735,14 @@ function displayProducts(list = products){
 
 function addToCart(id){
 
-  const product =
-    products.find(p => p.id === id);
+const product =
+products.find(p => p.id === id);
 
-  cart.push(product);
+cart.push(product);
 
-  updateCart();
+updateCart();
 
-  alert(product.name + " added to cart!");
+alert(product.name + " added to cart!");
 
 }
 
@@ -666,46 +750,50 @@ function addToCart(id){
 
 function updateCart(){
 
-  document.getElementById("cartCount").innerText =
-    cart.length;
+document.getElementById("cartCount").innerText =
+cart.length;
 
-  const items =
-    document.getElementById("cartItems");
+const items =
+document.getElementById("cartItems");
 
-  items.innerHTML = "";
+items.innerHTML = "";
 
-  let total = 0;
+let total = 0;
 
+cart.forEach((product,index)=>{
 
-  cart.forEach((product,index)=>{
+total += product.price;
 
-    total += product.price;
+items.innerHTML += `
 
-    items.innerHTML += `
+<div class="cart-item">
 
-      <div class="cart-item">
+<div>
 
-        <div>
-          <b>${product.name}</b><br>
-          ${product.price.toLocaleString()} Birr
-        </div>
+<b>${product.name}</b>
 
-        <button
-          class="remove"
-          onclick="removeFromCart(${index})"
-        >
-          Remove
-        </button>
+<br>
 
-      </div>
+${product.price.toLocaleString()} Birr
 
-    `;
+</div>
 
-  });
+<button
+class="remove"
+onclick="removeFromCart(${index})">
 
+Remove
 
-  document.getElementById("cartTotal").innerText =
-    total.toLocaleString();
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("cartTotal").innerText =
+total.toLocaleString();
 
 }
 
@@ -713,9 +801,9 @@ function updateCart(){
 
 function removeFromCart(index){
 
-  cart.splice(index,1);
+cart.splice(index,1);
 
-  updateCart();
+updateCart();
 
 }
 
@@ -723,18 +811,18 @@ function removeFromCart(index){
 
 function searchProducts(){
 
-  const search =
-    document.getElementById("search")
-    .value
-    .toLowerCase();
+const search =
+document.getElementById("search")
+.value
+.toLowerCase();
 
-  const result =
-    products.filter(product =>
-      product.name.toLowerCase().includes(search) ||
-      product.category.toLowerCase().includes(search)
-    );
+const result =
+products.filter(product =>
+product.name.toLowerCase().includes(search) ||
+product.category.toLowerCase().includes(search)
+);
 
-  displayProducts(result);
+displayProducts(result);
 
 }
 
@@ -742,20 +830,20 @@ function searchProducts(){
 
 function filterProducts(category){
 
-  if(category === "All"){
+if(category === "All"){
 
-    displayProducts(products);
+displayProducts(products);
 
-    return;
-  }
+return;
 
+}
 
-  const result =
-    products.filter(
-      product => product.category === category
-    );
+const result =
+products.filter(
+product => product.category === category
+);
 
-  displayProducts(result);
+displayProducts(result);
 
 }
 
@@ -763,20 +851,20 @@ function filterProducts(category){
 
 function hideSections(){
 
-  document.getElementById("productsSection")
-    .classList.add("hidden");
+document.getElementById("productsSection")
+.classList.add("hidden");
 
-  document.getElementById("cartSection")
-    .classList.add("hidden");
+document.getElementById("cartSection")
+.classList.add("hidden");
 
-  document.getElementById("orderSection")
-    .classList.add("hidden");
+document.getElementById("orderSection")
+.classList.add("hidden");
 
-  document.getElementById("paymentSection")
-    .classList.add("hidden");
+document.getElementById("paymentSection")
+.classList.add("hidden");
 
-  document.getElementById("contactSection")
-    .classList.add("hidden");
+document.getElementById("contactSection")
+.classList.add("hidden");
 
 }
 
@@ -784,15 +872,15 @@ function hideSections(){
 
 function goHome(){
 
-  hideSections();
+hideSections();
 
-  document.getElementById("productsSection")
-    .classList.remove("hidden");
+document.getElementById("productsSection")
+.classList.remove("hidden");
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 
 }
 
@@ -800,15 +888,15 @@ function goHome(){
 
 function goProducts(){
 
-  hideSections();
+hideSections();
 
-  document.getElementById("productsSection")
-    .classList.remove("hidden");
+document.getElementById("productsSection")
+.classList.remove("hidden");
 
-  document.getElementById("productsSection")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+document.getElementById("productsSection")
+.scrollIntoView({
+behavior:"smooth"
+});
 
 }
 
@@ -816,17 +904,17 @@ function goProducts(){
 
 function showCart(){
 
-  hideSections();
+hideSections();
 
-  document.getElementById("cartSection")
-    .classList.remove("hidden");
+document.getElementById("cartSection")
+.classList.remove("hidden");
 
-  updateCart();
+updateCart();
 
-  document.getElementById("cartSection")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+document.getElementById("cartSection")
+.scrollIntoView({
+behavior:"smooth"
+});
 
 }
 
@@ -834,15 +922,15 @@ function showCart(){
 
 function goOrder(){
 
-  hideSections();
+hideSections();
 
-  document.getElementById("orderSection")
-    .classList.remove("hidden");
+document.getElementById("orderSection")
+.classList.remove("hidden");
 
-  document.getElementById("orderSection")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+document.getElementById("orderSection")
+.scrollIntoView({
+behavior:"smooth"
+});
 
 }
 
@@ -850,15 +938,15 @@ function goOrder(){
 
 function goPayment(){
 
-  hideSections();
+hideSections();
 
-  document.getElementById("paymentSection")
-    .classList.remove("hidden");
+document.getElementById("paymentSection")
+.classList.remove("hidden");
 
-  document.getElementById("paymentSection")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+document.getElementById("paymentSection")
+.scrollIntoView({
+behavior:"smooth"
+});
 
 }
 
@@ -866,15 +954,15 @@ function goPayment(){
 
 function goContact(){
 
-  hideSections();
+hideSections();
 
-  document.getElementById("contactSection")
-    .classList.remove("hidden");
+document.getElementById("contactSection")
+.classList.remove("hidden");
 
-  document.getElementById("contactSection")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+document.getElementById("contactSection")
+.scrollIntoView({
+behavior:"smooth"
+});
 
 }
 
@@ -882,40 +970,39 @@ function goContact(){
 
 function sendOrder(event){
 
-  event.preventDefault();
+event.preventDefault();
+
+const name =
+document.getElementById("customerName").value;
+
+const phone =
+document.getElementById("customerPhone").value;
+
+const address =
+document.getElementById("customerAddress").value;
+
+const message =
+document.getElementById("customerMessage").value;
 
 
-  const name =
-    document.getElementById("customerName").value;
+let orderText = "";
 
-  const phone =
-    document.getElementById("customerPhone").value;
+cart.forEach(product => {
 
-  const address =
-    document.getElementById("customerAddress").value;
+orderText +=
+`• ${product.name} - ${product.price} Birr\n`;
 
-  const message =
-    document.getElementById("customerMessage").value;
+});
 
 
-  let orderText = "";
-
-  cart.forEach(product => {
-
-    orderText +=
-      `• ${product.name} - ${product.price} Birr\n`;
-
-  });
+const total =
+cart.reduce(
+(sum,product) => sum + product.price,
+0
+);
 
 
-  const total =
-    cart.reduce(
-      (sum,product)=>sum + product.price,
-      0
-    );
-
-
-  const whatsappMessage =
+const whatsappMessage =
 
 `🛍️ BILO SHOP ORDER
 
@@ -932,12 +1019,12 @@ ${orderText}
 ${message}`;
 
 
-  const url =
-    "https://wa.me/251921198754?text=" +
-    encodeURIComponent(whatsappMessage);
+const url =
+"https://wa.me/251921198754?text=" +
+encodeURIComponent(whatsappMessage);
 
 
-  window.open(url,"_blank");
+window.open(url,"_blank");
 
 }
 
@@ -946,6 +1033,26 @@ ${message}`;
 displayProducts();
 
 updateCart();
+
+
+/* PWA SERVICE WORKER */
+
+if("serviceWorker" in navigator){
+
+window.addEventListener("load",function(){
+
+navigator.serviceWorker
+.register("./sw.js")
+.then(function(){
+console.log("BILO SHOP Service Worker registered");
+})
+.catch(function(error){
+console.log("Service Worker error:",error);
+});
+
+});
+
+}
 
 </script>
 
