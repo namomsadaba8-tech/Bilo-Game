@@ -1,4 +1,4 @@
-const CACHE_NAME = "bilo-shop-v2";
+const CACHE_NAME = "bilo-shop-v3";
 
 const FILES_TO_CACHE = [
   "./",
@@ -12,21 +12,18 @@ self.addEventListener("install", function(event) {
       return cache.addAll(FILES_TO_CACHE);
     })
   );
-
   self.skipWaiting();
 });
 
 self.addEventListener("activate", function(event) {
   event.waitUntil(
-    caches.keys().then(function(cacheNames) {
+    caches.keys().then(function(names) {
       return Promise.all(
-        cacheNames
-          .filter(function(cacheName) {
-            return cacheName !== CACHE_NAME;
-          })
-          .map(function(cacheName) {
-            return caches.delete(cacheName);
-          })
+        names.map(function(name) {
+          if (name !== CACHE_NAME) {
+            return caches.delete(name);
+          }
+        })
       );
     }).then(function() {
       return self.clients.claim();
