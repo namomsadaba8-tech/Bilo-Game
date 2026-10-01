@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BILO SHOP</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f3f4f6;
+  color:#111827;
+}
+
+header{
+  background:linear-gradient(135deg,#2563eb,#06b6d4,#7c3aed);
+  color:white;
+  padding:15px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 3px 12px #0003;
+}
+
+.header-box{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+}
+
+.cart-top{
+  background:white;
+  color:#2563eb;
+  border:0;
+  border-radius:20px;
+  padding:9px 14px;
+  font-weight:bold;
+}
+
+nav{
+  max-width:1100px;
+  margin:12px auto 0;
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+}
+
+nav button{
+  border:0;
+  padding:9px 13px;
+  border-radius:20px;
+  background:#ffffff25;
+  color:white;
+  white-space:nowrap;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1d4ed8,#0891b2);
+  color:white;
+  text-align:center;
+  padding:55px 15px;
+}
+
+.hero h1{
+  font-size:35px;
+  margin-bottom:10px;
+}
+
+.hero p{
+  font-size:17px;
+  margin-bottom:20px;
+}
+
+.shop-btn{
+  background:white;
+  color:#1d4ed8;
+  border:0;
+  padding:13px 25px;
+  border-radius:25px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:25px 15px;
+}
+
+.title{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.search{
+  width:100%;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  margin-bottom:20px;
+  font-size:16px;
+}
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-bottom:30px;
+}
+
+.category{
+  background:white;
+  border:0;
+  padding:18px 8px;
+  border-radius:15px;
+  box-shadow:0 3px 10px #0001;
+  font-weight:bold;
+}
+
+.category:hover{
+  background:#e0f2fe;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.product{
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 4px 15px #0002;
+  transition:.2s;
+}
+
+.product:hover{
+  transform:translateY(-4px);
+}
+
+.product-img{
+  height:170px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#e0f2fe;
+  font-size:75px;
+}
+
+.product-info{
+  padding:15px;
+}
+
+.product-info h3{
+  margin-bottom:7px;
+}
+
+.category-name{
+  color:#6b7280;
+  font-size:13px;
+}
+
+.price{
+  color:#16a34a;
+  font-size:19px;
+  font-weight:bold;
+  margin:10px 0;
+}
+
+.desc{
+  color:#6b7280;
+  font-size:14px;
+  line-height:1.4;
+  min-height:40px;
+}
+
+.product button{
+  width:100%;
+  border:0;
+  background:#2563eb;
+  color:white;
+  padding:11px;
+  border-radius:10px;
+  margin-top:12px;
+  font-weight:bold;
+}
+
+section{
+  margin-bottom:25px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:18px;
+  box-shadow:0 3px 12px #0001;
+}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+  gap:10px;
+}
+
+.remove{
+  background:#dc2626;
+  color:white;
+  border:0;
+  padding:6px 10px;
+  border-radius:8px;
+}
+
+.total{
+  font-size:21px;
+  font-weight:bold;
+  margin-top:15px;
+  color:#16a34a;
+}
+
+form input,form textarea{
+  width:100%;
+  padding:13px;
+  margin:7px 0;
+  border:1px solid #ddd;
+  border-radius:10px;
+}
+
+form textarea{
+  min-height:100px;
+}
+
+.order-btn,.whatsapp{
+  display:block;
+  width:100%;
+  text-align:center;
+  border:0;
+  padding:13px;
+  border-radius:10px;
+  color:white;
+  font-weight:bold;
+  margin-top:10px;
+  text-decoration:none;
+}
+
+.order-btn{
+  background:#2563eb;
+}
+
+.whatsapp{
+  background:#16a34a;
+}
+
+.payment{
+  background:#fff7ed;
+  border-left:5px solid #f97316;
+}
+
+footer{
+  background:#111827;
+  color:white;
+  text-align:center;
+  padding:30px 15px;
+  margin-top:30px;
+}
+
+.hidden{
+  display:none;
+}
+
+@media(max-width:800px){
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .categories{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .hero h1{
+    font-size:28px;
+  }
+}
+
+@media(max-width:450px){
+  .products{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  .product-img{
+    height:130px;
+    font-size:55px;
+  }
+
+  .product-info{
+    padding:10px;
+  }
+
+  .product-info h3{
+    font-size:16px;
+  }
+
+  .price{
+    font-size:16px;
+  }
+
+  .desc{
+    font-size:12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-box">
+    <div class="logo">🛍️ BILO SHOP</div>
+    <button class="cart-top" onclick="showCart()">
+      🛒 Cart (<span id="cartCount">0</span>)
+    </button>
+  </div>
+
+  <nav>
+    <button onclick="goHome()">Home</button>
+    <button onclick="goProducts()">Products</button>
+    <button onclick="showCart()">Cart</button>
+    <button onclick="goOrder()">Order</button>
+    <button onclick="goPayment()">Payment</button>
+    <button onclick="goContact()">Contact</button>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Shop Smart. Live Better.</h1>
+  <p>Electronics & Smart Products</p>
+  <button class="shop-btn" onclick="goProducts()">SHOP NOW</button>
+</div>
+
+<div class="container">
+
+<section id="productsSection">
+
+  <h2 class="title">🔍 Find Your Product</h2>
+
+  <input
+    type="text"
+    id="search"
+    class="search"
+    placeholder="Search product..."
+    onkeyup="searchProducts()"
+  >
+
+  <h2 class="title">Categories</h2>
+
+  <div class="categories">
+    <button class="category" onclick="filterProducts('All')">🛍️ All</button>
+    <button class="category" onclick="filterProducts('Phones')">📱 Phones</button>
+    <button class="category" onclick="filterProducts('Headphones')">🎧 Headphones</button>
+    <button class="category" onclick="filterProducts('Watch')">⌚ Smart Watch</button>
+  </div>
+
+  <h2 class="title">🛒 Our Products</h2>
+
+  <div class="products" id="productList"></div>
+
+</section>
+
+
+<section id="cartSection" class="hidden">
+
+  <h2 class="title">🛒 Your Cart</h2>
+
+  <div class="card">
+    <div id="cartItems"></div>
+    <div class="total">
+      Total: <span id="cartTotal">0</span> Birr
+    </div>
+  </div>
+
+</section>
+
+
+<section id="orderSection" class="hidden">
+
+  <h2 class="title">📦 Place Your Order</h2>
+
+  <div class="card">
+
+    <form onsubmit="sendOrder(event)">
+
+      <input
+        type="text"
+        id="customerName"
+        placeholder="Your Name"
+        required
+      >
+
+      <input
+        type="tel"
+        id="customerPhone"
+        placeholder="Phone Number"
+        required
+      >
+
+      <input
+        type="text"
+        id="customerAddress"
+        placeholder="Your Address"
+        required
+      >
+
+      <textarea
+        id="customerMessage"
+        placeholder="Order details..."
+        required
+      ></textarea>
+
+      <button class="order-btn" type="submit">
+        📲 Send Order on WhatsApp
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<section id="paymentSection" class="hidden">
+
+  <h2 class="title">💳 Payment</h2>
+
+  <div class="card payment">
+
+    <h3>Payment Information</h3>
+
+    <p style="margin-top:10px;">
+      After placing your order, contact BILO SHOP Customer Service
+      to receive payment instructions.
+    </p>
+
+    <a
+      class="whatsapp"
+      href="https://wa.me/251921198754"
+      target="_blank"
+    >
+      💬 Contact Customer Service
+    </a>
+
+  </div>
+
+</section>
+
+
+<section id="contactSection" class="hidden">
+
+  <h2 class="title">📞 Contact Us</h2>
+
+  <div class="card">
+
+    <h3>Customer Service</h3>
+
+    <p style="margin:12px 0;">
+      📞 +125921198754
+    </p>
+
+    <a
+      class="whatsapp"
+      href="https://wa.me/251921198754"
+      target="_blank"
+    >
+      💬 Chat on WhatsApp
+    </a>
+
+  </div>
+
+</section>
+
+</div>
+
+
+<footer>
+  <h3>🛍️ BILO SHOP</h3>
+  <p style="margin-top:8px;">
+    Electronics & Smart Products
+  </p>
+  <p style="margin-top:8px;">
+    © 2026 BILO SHOP
+  </p>
+</footer>
+
+
+<script>
+
+const products = [
+
+  {
+    id:1,
+    name:"Smart Phone",
+    category:"Phones",
+    price:15000,
+    icon:"📱",
+    description:"Modern smartphone with excellent performance."
+  },
+
+  {
+    id:2,
+    name:"Premium Headphone",
+    category:"Headphones",
+    price:1500,
+    icon:"🎧",
+    description:"Clear sound and comfortable wireless headphone."
+  },
+
+  {
+    id:3,
+    name:"Smart Watch",
+    category:"Watch",
+    price:2500,
+    icon:"⌚",
+    description:"Stylish smart watch for everyday use."
+  },
+
+  {
+    id:4,
+    name:"Bluetooth Speaker",
+    category:"Speakers",
+    price:2000,
+    icon:"🔊",
+    description:"Portable speaker with powerful sound."
+  },
+
+  {
+    id:5,
+    name:"Wireless Earbuds",
+    category:"Headphones",
+    price:1200,
+    icon:"🎶",
+    description:"Small and comfortable wireless earbuds."
+  },
+
+  {
+    id:6,
+    name:"Power Bank",
+    category:"Accessories",
+    price:1800,
+    icon:"🔋",
+    description:"Reliable power bank for charging your phone."
+  },
+
+  {
+    id:7,
+    name:"Smart Tablet",
+    category:"Phones",
+    price:8500,
+    icon:"📲",
+    description:"Large screen tablet for work and entertainment."
+  },
+
+  {
+    id:8,
+    name:"USB Charger",
+    category:"Accessories",
+    price:700,
+    icon:"🔌",
+    description:"Fast and reliable USB charger."
+  }
+
+];
+
+
+let cart = [];
+
+
+
+function displayProducts(list = products){
+
+  const productList =
+    document.getElementById("productList");
+
+  productList.innerHTML = "";
+
+  if(list.length === 0){
+
+    productList.innerHTML =
+      "<p style='text-align:center;'>Product not found.</p>";
+
+    return;
+  }
+
+
+  list.forEach(product => {
+
+    productList.innerHTML += `
+
+      <div class="product">
+
+        <div class="product-img">
+          ${product.icon}
+        </div>
+
+        <div class="product-info">
+
+          <h3>${product.name}</h3>
+
+          <div class="category-name">
+            ${product.category}
+          </div>
+
+          <div class="price">
+            ${product.price.toLocaleString()} Birr
+          </div>
+
+          <div class="desc">
+            ${product.description}
+          </div>
+
+          <button onclick="addToCart(${product.id})">
+            🛒 Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+
+function addToCart(id){
+
+  const product =
+    products.find(p => p.id === id);
+
+  cart.push(product);
+
+  updateCart();
+
+  alert(product.name + " added to cart!");
+
+}
+
+
+
+function updateCart(){
+
+  document.getElementById("cartCount").innerText =
+    cart.length;
+
+  const items =
+    document.getElementById("cartItems");
+
+  items.innerHTML = "";
+
+  let total = 0;
+
+
+  cart.forEach((product,index)=>{
+
+    total += product.price;
+
+    items.innerHTML += `
+
+      <div class="cart-item">
+
+        <div>
+          <b>${product.name}</b><br>
+          ${product.price.toLocaleString()} Birr
+        </div>
+
+        <button
+          class="remove"
+          onclick="removeFromCart(${index})"
+        >
+          Remove
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+
+  document.getElementById("cartTotal").innerText =
+    total.toLocaleString();
+
+}
+
+
+
+function removeFromCart(index){
+
+  cart.splice(index,1);
+
+  updateCart();
+
+}
+
+
+
+function searchProducts(){
+
+  const search =
+    document.getElementById("search")
+    .value
+    .toLowerCase();
+
+  const result =
+    products.filter(product =>
+      product.name.toLowerCase().includes(search) ||
+      product.category.toLowerCase().includes(search)
+    );
+
+  displayProducts(result);
+
+}
+
+
+
+function filterProducts(category){
+
+  if(category === "All"){
+
+    displayProducts(products);
+
+    return;
+  }
+
+
+  const result =
+    products.filter(
+      product => product.category === category
+    );
+
+  displayProducts(result);
+
+}
+
+
+
+function hideSections(){
+
+  document.getElementById("productsSection")
+    .classList.add("hidden");
+
+  document.getElementById("cartSection")
+    .classList.add("hidden");
+
+  document.getElementById("orderSection")
+    .classList.add("hidden");
+
+  document.getElementById("paymentSection")
+    .classList.add("hidden");
+
+  document.getElementById("contactSection")
+    .classList.add("hidden");
+
+}
+
+
+
+function goHome(){
+
+  hideSections();
+
+  document.getElementById("productsSection")
+    .classList.remove("hidden");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+
+function goProducts(){
+
+  hideSections();
+
+  document.getElementById("productsSection")
+    .classList.remove("hidden");
+
+  document.getElementById("productsSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+
+function showCart(){
+
+  hideSections();
+
+  document.getElementById("cartSection")
+    .classList.remove("hidden");
+
+  updateCart();
+
+  document.getElementById("cartSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+
+function goOrder(){
+
+  hideSections();
+
+  document.getElementById("orderSection")
+    .classList.remove("hidden");
+
+  document.getElementById("orderSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+
+function goPayment(){
+
+  hideSections();
+
+  document.getElementById("paymentSection")
+    .classList.remove("hidden");
+
+  document.getElementById("paymentSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+
+function goContact(){
+
+  hideSections();
+
+  document.getElementById("contactSection")
+    .classList.remove("hidden");
+
+  document.getElementById("contactSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+
+function sendOrder(event){
+
+  event.preventDefault();
+
+
+  const name =
+    document.getElementById("customerName").value;
+
+  const phone =
+    document.getElementById("customerPhone").value;
+
+  const address =
+    document.getElementById("customerAddress").value;
+
+  const message =
+    document.getElementById("customerMessage").value;
+
+
+  let orderText = "";
+
+  cart.forEach(product => {
+
+    orderText +=
+      `• ${product.name} - ${product.price} Birr\n`;
+
+  });
+
+
+  const total =
+    cart.reduce(
+      (sum,product)=>sum + product.price,
+      0
+    );
+
+
+  const whatsappMessage =
+
+`🛍️ BILO SHOP ORDER
+
+👤 Name: ${name}
+📞 Phone: ${phone}
+📍 Address: ${address}
+
+🛒 Products:
+${orderText}
+
+💰 Total: ${total} Birr
+
+📝 Message:
+${message}`;
+
+
+  const url =
+    "https://wa.me/251921198754?text=" +
+    encodeURIComponent(whatsappMessage);
+
+
+  window.open(url,"_blank");
+
+}
+
+
+
+displayProducts();
+
+updateCart();
+
+</script>
+
+</body>
+</html>
